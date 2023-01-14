@@ -1,5 +1,6 @@
 package com.devdroid.sqlite;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -27,15 +28,32 @@ public class MyDataBase extends SQLiteOpenHelper {
 
         //  Query--> CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phone_no TEXT);
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CONTACT +
-                "(" + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_PHONE_NO + " TEXT" + ")");
+                "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_PHONE_NO + " TEXT" + ")");
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+        // This method is used when new database is update or change
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " +TABLE_CONTACT);
         onCreate(sqLiteDatabase);
+
+    }
+
+    // Insertion Method
+    public void addContacts(String name, String phone_no)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        // To pass the value in content we make a content  variable
+        ContentValues values = new ContentValues();
+        // Add column and data of column
+        values.put(KEY_NAME, name);
+        values.put(KEY_PHONE_NO, phone_no);
+
+        sqLiteDatabase.insert(TABLE_CONTACT,null,values);
 
     }
 }
