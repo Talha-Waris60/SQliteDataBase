@@ -2,10 +2,13 @@ package com.devdroid.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class MyDataBase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ContactsDB";
@@ -55,5 +58,31 @@ public class MyDataBase extends SQLiteOpenHelper {
 
         sqLiteDatabase.insert(TABLE_CONTACT,null,values);
 
+    }
+
+    // When the data will be fetch we store the data in ArrayList
+    public ArrayList<ContactModel> fetchContact()
+    {
+        // Open a database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // To fetch the data we used a raw query
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CONTACT, null);
+
+        ArrayList<ContactModel> arrContact = new ArrayList<>();
+
+        // To fetch all the data we move the cursor to the end
+        while (cursor.moveToNext())
+        {
+            // To store the value in Contact Model class
+            ContactModel model = new ContactModel();
+            model.id = cursor.getInt(0);
+            model.name = cursor.getString(1);
+            model.phone_no = cursor.getString(2);
+
+            // Add the model class into arraylist
+            arrContact.add(model);
+        }
+        return arrContact;
     }
 }
