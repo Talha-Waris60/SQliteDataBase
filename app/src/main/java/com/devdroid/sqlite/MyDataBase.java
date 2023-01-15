@@ -61,6 +61,7 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
     // When the data will be fetch we store the data in ArrayList
+    // Fetch Method
     public ArrayList<ContactModel> fetchContact()
     {
         // Open a database
@@ -86,6 +87,7 @@ public class MyDataBase extends SQLiteOpenHelper {
         return arrContact;
     }
 
+    //  Update Method
     public void updateContact(ContactModel contactModel)
     {
         // Open a database
@@ -96,6 +98,13 @@ public class MyDataBase extends SQLiteOpenHelper {
         values.put(KEY_PHONE_NO,contactModel.phone_no);
         db.update(TABLE_CONTACT, values, KEY_ID + " = " + contactModel.id, null );
 
+    }
+    public void deleteContact(int id)
+    {
+
+        // Open the DataBase
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONTACT, KEY_ID + " = ? ", new String[]{String.valueOf(id)});
     }
 
 }

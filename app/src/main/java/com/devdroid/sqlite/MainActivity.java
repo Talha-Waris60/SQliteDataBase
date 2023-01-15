@@ -35,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Update Method
-        ContactModel model = new ContactModel();
+//        ContactModel model = new ContactModel();
+//
+//        // tell id where you want to update the data
+//        model.id = 2;
+//        // Phone number which you want to upadte
+//        model.phone_no = "03000000000";
+//        dataBase.updateContact(model);
 
-        // tell id where you want to update the data
-        model.id = 2;
-        // Phone number which you want to upadte
-        model.phone_no = "03000000000";
-        dataBase.updateContact(model);
+        // Delete Contact
+        dataBase.deleteContact(3);
     }
 }
