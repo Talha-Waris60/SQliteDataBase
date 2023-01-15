@@ -85,4 +85,17 @@ public class MyDataBase extends SQLiteOpenHelper {
         }
         return arrContact;
     }
+
+    public void updateContact(ContactModel contactModel)
+    {
+        // Open a database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        // Update Phone number
+        values.put(KEY_PHONE_NO,contactModel.phone_no);
+        db.update(TABLE_CONTACT, values, KEY_ID + " = " + contactModel.id, null );
+
+    }
+
 }
